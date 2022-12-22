@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="95694a5c2fa34823beda77d988aa32e8" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.client" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.commande" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.commanderProduit" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.panier" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.produit" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_client" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_panier" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_commande" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_panier5" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_produit" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

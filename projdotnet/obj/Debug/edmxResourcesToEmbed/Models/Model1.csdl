@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="Int32" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="money" Type="Double" />
+    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="commande" Relationship="Self.FK_client" FromRole="client" ToRole="commande" />
+    <NavigationProperty Name="panier" Relationship="Self.FK_panier" FromRole="client" ToRole="panier" />
+  </EntityType>
+  <EntityType Name="commande">
+    <Key>
+      <PropertyRef Name="Idcmd" />
+    </Key>
+    <Property Name="Idcmd" Type="Int32" Nullable="false" />
+    <Property Name="idclient" Type="Int32" />
+    <Property Name="qte" Type="Int32" />
+    <Property Name="ref_produit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="client" Relationship="Self.FK_client" FromRole="commande" ToRole="client" />
+    <NavigationProperty Name="commanderProduit" Relationship="Self.FK_commande" FromRole="commande" ToRole="commanderProduit" />
+  </EntityType>
+  <EntityType Name="commanderProduit">
+    <Key>
+      <PropertyRef Name="Idcommande" />
+      <PropertyRef Name="ref_produit" />
+      <PropertyRef Name="idpanier" />
+    </Key>
+    <Property Name="Idcommande" Type="Int32" Nullable="false" />
+    <Property Name="ref_produit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idpanier" Type="Int32" Nullable="false" />
+    <Property Name="qte" Type="Int32" />
+    <NavigationProperty Name="commande" Relationship="Self.FK_commande" FromRole="commanderProduit" ToRole="commande" />
+    <NavigationProperty Name="panier" Relationship="Self.FK_panier5" FromRole="commanderProduit" ToRole="panier" />
+    <NavigationProperty Name="produit" Relationship="Self.FK_produit" FromRole="commanderProduit" ToRole="produit" />
+  </EntityType>
+  <EntityType Name="panier">
+    <Key>
+      <PropertyRef Name="idpanier" />
+    </Key>
+    <Property Name="idpanier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idclient" Type="Int32" Nullable="false" />
+    <Property Name="qte_prod" Type="Int32" />
+    <Property Name="ref_produit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="urlproduit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="prix" Type="Double" />
+    <NavigationProperty Name="client" Relationship="Self.FK_panier" FromRole="panier" ToRole="client" />
+    <NavigationProperty Name="commanderProduit" Relationship="Self.FK_panier5" FromRole="panier" ToRole="commanderProduit" />
+  </EntityType>
+  <EntityType Name="produit">
+    <Key>
+      <PropertyRef Name="ref_produit" />
+    </Key>
+    <Property Name="ref_produit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prix" Type="Double" />
+    <Property Name="urlproduit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="commanderProduit" Relationship="Self.FK_produit" FromRole="produit" ToRole="commanderProduit" />
+  </EntityType>
+  <Association Name="FK_client">
+    <End Role="client" Type="Self.client" Multiplicity="0..1" />
+    <End Role="commande" Type="Self.commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="commande">
+        <PropertyRef Name="idclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_panier">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="panier" Type="Self.panier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="panier">
+        <PropertyRef Name="idclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_commande">
+    <End Role="commande" Type="Self.commande" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="commande">
+        <PropertyRef Name="Idcmd" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="Idcommande" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_panier5">
+    <End Role="panier" Type="Self.panier" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="panier">
+        <PropertyRef Name="idpanier" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="idpanier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_produit">
+    <End Role="produit" Type="Self.produit" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produit">
+        <PropertyRef Name="ref_produit" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="ref_produit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1Entities17" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="client" EntityType="Self.client" />
+    <EntitySet Name="commande" EntityType="Self.commande" />
+    <EntitySet Name="commanderProduit" EntityType="Self.commanderProduit" />
+    <EntitySet Name="panier" EntityType="Self.panier" />
+    <EntitySet Name="produit" EntityType="Self.produit" />
+    <AssociationSet Name="FK_client" Association="Self.FK_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="commande" EntitySet="commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_panier" Association="Self.FK_panier">
+      <End Role="client" EntitySet="client" />
+      <End Role="panier" EntitySet="panier" />
+    </AssociationSet>
+    <AssociationSet Name="FK_commande" Association="Self.FK_commande">
+      <End Role="commande" EntitySet="commande" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_panier5" Association="Self.FK_panier5">
+      <End Role="panier" EntitySet="panier" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_produit" Association="Self.FK_produit">
+      <End Role="produit" EntitySet="produit" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title - Mon application ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+@{ 
+    string absolutepath = HttpContext.Current.Request.Url.AbsolutePath;
+}
+@if (Session["userID"] != null && Session["role"]!="admin" && absolutepath!="/" && Session["role"] != "admin" && absolutepath != "/Tables/create")
+{
+
+
+    <body class="d-flex">
+        <header style="width:20%" >
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
+                <div class="position-sticky ">
+                    <div class="list-group list-group-flush mx-3 mt-4 ">
+                        <a href="@Url.Action("Index","product")"
+                           class="list-group-item list-group-item-action py-2 ripple"
+                        >
+                            <i class="fa-solid fa-house"></i><span class="mx-3">Top sales</span>
+                        </a>
+                        <a href="@Url.Action("produit","product")" class="list-group-item list-group-item-action py-2 ripple ">
+                            <i class="fa-solid fa-futbol"></i><span class="mx-3">Sports Equipment</span>
+                        </a>
+                        <a href="@Url.Action("Electronics","product")" class="list-group-item list-group-item-action py-2 ripple"><i class="fa-solid fa-laptop"></i><span class="mx-3">Electronics</span></a>
+                        <a href="@Url.Action("beauty","product")" class="list-group-item list-group-item-action py-2 ripple"><i class="fa-regular fa-gem"></i><span class="mx-3">beauty Products</span></a>
+                        <a href="@Url.Action("garden","product")" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fa-solid fa-house"></i><span class="mx-3">Home and Garden</span>
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
+            <!-- Sidebar -->
+            <!-- Navbar -->
+            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+                <!-- Container wrapper -->
+                <div class="container-fluid">
+                    <!-- Toggle button -->
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-mdb-toggle="collapse"
+                            data-mdb-target="#sidebarMenu"
+                            aria-controls="sidebarMenu"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <!-- Brand -->
+                    <a class="navbar-brand" href="#">
+                        <img src="https://th.bing.com/th/id/R.e4d0f5fe89ebc63051ca15abf5f0b222?rik=pA9uUHhZmOcqiQ&pid=ImgRaw&r=0"
+                             height="25"
+                             alt="MDB Logo"
+                             loading="lazy" />
+                    </a>
+                    <!-- Search form -->
+                  
+                    <!-- Right links -->
+                    <ul class="navbar-nav ms-auto d-flex flex-row">
+                       
+                        <h4 class="mt-2 mx-2 text-success" >@Session["role"]</h4>
+                        @if (Session["role"] == "client")
+                        {
+                            <p class="mt-2 mx-1">-</p>
+                            <p class=" mx-2" style="margin:10px 0 0 0;"><i class="fa-solid fa-cart-shopping mx-1"></i>@Session["solde"]dt</p>
+}
+                        <div>@Html.ActionLink("panier", "getpanier", "Panier", new { id = Session["userId"] }, new { @class = "btn btn-primary mt-2 mx-2" })</div>
+                      
+                        <a href="/"  class="text-danger " style="margin:10px 0 0 0; font-weight:500;">Logout</a>   
+                        
+                    </ul>
+                </div>
+                <!-- Container wrapper -->
+            </nav>
+            <!-- Navbar -->
+        </header>
+        <!--Main Navigation-->
+        <!--Main layout-->
+        
+        <!--Main Navigation-->
+
+        <main class="w-75 " style="margin: 0 0 0 50px;">
+            <div class="container pt-4 ">
+                @RenderBody()
+            </div>
+        </main>
+        <!--Main layout-->
+
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </body>
+}
+else
+{
+<body style="overflow: hidden;">
+    <main class="w-75" style="margin: 0px 0 0 100px; ">
+        <div class="container pt-4">
+            @RenderBody()
+        </div>
+    </main>
+</body>
+}
+</html>
+
+

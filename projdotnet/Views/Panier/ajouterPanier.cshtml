@@ -1,0 +1,78 @@
+﻿
+
+@model projdotnet.Models.panier
+@{ 
+    string urlproduit = Request.QueryString["nom"];
+    string id = Request.QueryString["ref_produit"];
+    string prix = Request.QueryString["prix"];
+  
+    string absolutepath = HttpContext.Current.Request.Url.AbsolutePath;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal container">
+    <h4>ADD PRODUCT</h4>
+    <hr />
+ 
+    <div class="row">
+        <div class="col-4">
+
+            <img src="@urlproduit" style="height:200px;width :200px; border-radius:20%;" alt="Alternate Text" />
+            <div class="form-group d-flex mt-2 ">
+                @Html.LabelFor(model => model.qte_prod, htmlAttributes: new { @class = "control-label col-md-2 text-secondary" })
+                <div class="col-md-10 mx-2">
+
+                    @Html.EditorFor(model => model.qte_prod, new { htmlAttributes = new { @class = "form-control" , @style="width:75px;" } })
+                    @Html.ValidationMessageFor(model => model.qte_prod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.idclient, "idclient", htmlAttributes: new { @class = "control-label col-md-2 text-secondary" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.idclient, new { htmlAttributes = new { @class = "form-control ", @Value = Session["userId"] } })
+                    @Html.ValidationMessageFor(model => model.idclient, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+          
+            <div class="form-group">
+                @Html.LabelFor(model => model.ref_produit, htmlAttributes: new { @class = "control-label col-md-2 text-secondary" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ref_produit, new { htmlAttributes = new { @class = "form-control", @Value = id } })
+                    @Html.ValidationMessageFor(model => model.ref_produit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.urlproduit, htmlAttributes: new { @class = "control-label col-md-2 text-secondary" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.urlproduit, new { htmlAttributes = new { @class = "form-control", @Value = urlproduit } })
+                    @Html.ValidationMessageFor(model => model.urlproduit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.prix, htmlAttributes: new { @class = "control-label col-md-2 text-secondary" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.prix, new { htmlAttributes = new { @class = "form-control", @Value = prix } })
+                    @Html.ValidationMessageFor(model => model.prix, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group mt-5">
+        <div class="col-md-offset-2 col-md-10 d-flex p-2 ">
+            <input type="submit" value="Save" class="btn btn-secondary " />
+            @Html.ActionLink("Back to List", "Index", "product", null, new { @class = "btn btn-light mx-1" })
+        </div>
+    </div>
+</div>
+}
+

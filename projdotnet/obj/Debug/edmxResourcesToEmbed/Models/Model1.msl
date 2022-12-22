@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities17">
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="Database1Model.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="money" ColumnName="money" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="commande">
+      <EntityTypeMapping TypeName="Database1Model.commande">
+        <MappingFragment StoreEntitySet="commande">
+          <ScalarProperty Name="Idcmd" ColumnName="Idcmd" />
+          <ScalarProperty Name="idclient" ColumnName="idclient" />
+          <ScalarProperty Name="qte" ColumnName="qte" />
+          <ScalarProperty Name="ref_produit" ColumnName="ref_produit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="commanderProduit">
+      <EntityTypeMapping TypeName="Database1Model.commanderProduit">
+        <MappingFragment StoreEntitySet="commanderProduit">
+          <ScalarProperty Name="Idcommande" ColumnName="Idcommande" />
+          <ScalarProperty Name="ref_produit" ColumnName="ref_produit" />
+          <ScalarProperty Name="idpanier" ColumnName="idpanier" />
+          <ScalarProperty Name="qte" ColumnName="qte" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="panier">
+      <EntityTypeMapping TypeName="Database1Model.panier">
+        <MappingFragment StoreEntitySet="panier">
+          <ScalarProperty Name="idpanier" ColumnName="idpanier" />
+          <ScalarProperty Name="idclient" ColumnName="idclient" />
+          <ScalarProperty Name="qte_prod" ColumnName="qte_prod" />
+          <ScalarProperty Name="ref_produit" ColumnName="ref_produit" />
+          <ScalarProperty Name="urlproduit" ColumnName="urlproduit" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="produit">
+      <EntityTypeMapping TypeName="Database1Model.produit">
+        <MappingFragment StoreEntitySet="produit">
+          <ScalarProperty Name="ref_produit" ColumnName="ref_produit" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="urlproduit" ColumnName="urlproduit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

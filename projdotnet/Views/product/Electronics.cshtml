@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<projdotnet.Models.produit>
+
+@{
+    ViewBag.Title = "Index";
+}
+<body style="">
+    <div class="container ">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="card " style=" width:300px; margin:0 0 0 10px;">
+                    <div class="d-flex justify-content-between p-3">
+                        <h4 class="lead mb-0 mt-2" style="text-transform: uppercase; font-weight:300">@Html.DisplayFor(modelItem => item.category)</h4>
+                        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                             style="width: 35px; height: 35px;">
+                            <p class="text-white mb-0 small">E</p>
+                        </div>
+                    </div>
+                    <img src="@Html.DisplayFor(modelItem => item.urlproduit)"
+                         class="card-img-top" alt="img" style="height:200px" />
+                    <div class="card-body">
+
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6 class="mb-0 text-secondary">@Html.DisplayFor(modelItem => item.nom) :</h6>
+                            <h7 class="text-dark mb-0">@Html.DisplayFor(modelItem => item.prix) dt</h7>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="text-muted mb-0">Available: <span class="fw-bold">6</span></p>
+                            <div class="ms-auto text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        @Html.ActionLink("ajouter au panier", "ajouterPanier", "Panier", new { id = item.ref_produit, ref_produit = item.ref_produit, nom = item.urlproduit, prix = item.prix }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+
+
+            }
+        </div>
+    </div>
+
+</body>

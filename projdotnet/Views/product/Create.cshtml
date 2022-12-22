@@ -1,0 +1,107 @@
+﻿@model projdotnet.Models.produit
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal container">
+    <h4>produit</h4>
+    <hr />
+   
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="form-group col">
+            @Html.LabelFor(model => model.ref_produit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ref_produit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ref_produit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col">
+            @Html.LabelFor(model => model.nom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = "sport",
+                Value = "sport"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "beautyproduct",
+                Value = "beautyproduct",
+                Selected = true
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "electronics",
+                Value = "electronics"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "homeandgarden",
+                Value = "homeandgarden"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "Top",
+                Value = "Top"
+            });
+
+        }
+
+        <div class="form-group col">
+            <label class="col-lg-2 control-label">categories:</label>
+            <div class="col-lg-10">
+                @Html.DropDownListFor(model => model.category, listItems, new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group col">
+            @Html.LabelFor(model => model.prix, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.prix, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.prix, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+    <div class="form-group ">
+        <p class="text-bg-primary text-white mt-2 p-3">insert your product photo url right here </p>
+        <div class="form-group col">
+          
+            <div class="col-md-10 d-flex">
+                @Html.EditorFor(model => model.urlproduit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.urlproduit, "", new { @class = "text-danger" })  <span class="mx-3 mt-2"> <i class="fa-solid fa-image"></i> "copy your photo url"</span>
+            </div>
+        </div>
+        <div class="form-group mt-5">
+            <div class="col-md-offset-2 col-md-10 d-flex p-2 mt-5">
+                <input type="submit" value="Save" class="btn btn-secondary " />
+                @Html.ActionLink("Back to List", "Index","Tables", null, new { @class = "btn btn-light mx-1" })
+            </div>
+        </div>
+    </div>
+}
+
+

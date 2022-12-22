@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" MaxLength="50" />
+    <Property Name="tel" Type="int" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="user" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="money" Type="float" />
+    <Property Name="role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="commande">
+    <Key>
+      <PropertyRef Name="Idcmd" />
+    </Key>
+    <Property Name="Idcmd" Type="int" Nullable="false" />
+    <Property Name="idclient" Type="int" />
+    <Property Name="qte" Type="int" />
+    <Property Name="ref_produit" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="commanderProduit">
+    <Key>
+      <PropertyRef Name="Idcommande" />
+      <PropertyRef Name="ref_produit" />
+      <PropertyRef Name="idpanier" />
+    </Key>
+    <Property Name="Idcommande" Type="int" Nullable="false" />
+    <Property Name="ref_produit" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idpanier" Type="int" Nullable="false" />
+    <Property Name="qte" Type="int" />
+  </EntityType>
+  <EntityType Name="panier">
+    <Key>
+      <PropertyRef Name="idpanier" />
+    </Key>
+    <Property Name="idpanier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idclient" Type="int" Nullable="false" />
+    <Property Name="qte_prod" Type="int" />
+    <Property Name="ref_produit" Type="varchar" MaxLength="50" />
+    <Property Name="urlproduit" Type="varchar" MaxLength="200" />
+    <Property Name="prix" Type="float" />
+  </EntityType>
+  <EntityType Name="produit">
+    <Key>
+      <PropertyRef Name="ref_produit" />
+    </Key>
+    <Property Name="ref_produit" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="prix" Type="float" />
+    <Property Name="urlproduit" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_client">
+    <End Role="client" Type="Self.client" Multiplicity="0..1" />
+    <End Role="commande" Type="Self.commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="commande">
+        <PropertyRef Name="idclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_commande">
+    <End Role="commande" Type="Self.commande" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="commande">
+        <PropertyRef Name="Idcmd" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="Idcommande" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_panier">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="panier" Type="Self.panier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="panier">
+        <PropertyRef Name="idclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_panier5">
+    <End Role="panier" Type="Self.panier" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="panier">
+        <PropertyRef Name="idpanier" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="idpanier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_produit">
+    <End Role="produit" Type="Self.produit" Multiplicity="1" />
+    <End Role="commanderProduit" Type="Self.commanderProduit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produit">
+        <PropertyRef Name="ref_produit" />
+      </Principal>
+      <Dependent Role="commanderProduit">
+        <PropertyRef Name="ref_produit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="commande" EntityType="Self.commande" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="commanderProduit" EntityType="Self.commanderProduit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="panier" EntityType="Self.panier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="produit" EntityType="Self.produit" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_client" Association="Self.FK_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="commande" EntitySet="commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_commande" Association="Self.FK_commande">
+      <End Role="commande" EntitySet="commande" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_panier" Association="Self.FK_panier">
+      <End Role="client" EntitySet="client" />
+      <End Role="panier" EntitySet="panier" />
+    </AssociationSet>
+    <AssociationSet Name="FK_panier5" Association="Self.FK_panier5">
+      <End Role="panier" EntitySet="panier" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_produit" Association="Self.FK_produit">
+      <End Role="produit" EntitySet="produit" />
+      <End Role="commanderProduit" EntitySet="commanderProduit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

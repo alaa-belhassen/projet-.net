@@ -1,0 +1,58 @@
+﻿@model IEnumerable<projdotnet.Models.panier>
+@{
+    string prix = Request.QueryString["achatTotal"];
+}
+
+<h4>panier</h4>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            produit
+        </th>
+
+        <th> nomclient </th>
+        <th> @Html.DisplayNameFor(model => model.qte_prod)</th>
+        <th> @Html.DisplayNameFor(model => model.ref_produit)</th>
+
+        <th> prix </th>
+        <th> </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.urlproduit)" style="height:50px; width:50px; border-radius:10%;" alt="Alternate Text" />
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.client.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qte_prod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ref_produit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prix)
+            </td>
+            <td>
+
+                @Html.ActionLink("Delete", "deletepanier", new { id = item.idpanier }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+@if (Session["role"] == "admin")
+{
+    <div>  @Html.ActionLink("return", "Index","Tables","", new { @class = "btn btn-success" })</div>
+}
+else
+{
+    <div>  @Html.ActionLink("return", "Index","product","", new { @class = "btn btn-success" })</div>
+}
+
+<p>@prix</p>

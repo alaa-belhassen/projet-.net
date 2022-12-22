@@ -1,0 +1,47 @@
+﻿@model projdotnet.Models.panier
+
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Panier user</h4>
+    <hr />
+    <div>
+
+
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.idclient)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.client.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.qte_prod)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ref_produit)
+                </td>
+                <td>
+                </td>
+
+            </tr>
+        </table>
+
+
+
+    </div>
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model }, new { @class = "btn btn-secondary" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-light" })
+</p>
